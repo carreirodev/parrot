@@ -1,0 +1,4 @@
+API/node_modules/
+API/dist/
+API/.vscode/
+API/.env
