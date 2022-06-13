@@ -5,7 +5,7 @@ const { faker } = require("@faker-js/faker");
 
 let seed = [];
 
-for (let i = 0; i < 10; i++) {
+for (let i = 0; i < 15; i++) {
 	const senha = faker.random.alpha(10);
 	const novaSenha = bcrypt.hashSync(senha, 10);
 	seed.push({
