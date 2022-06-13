@@ -10,12 +10,14 @@
 	"author": "group_09__gamaxp41",
 	"license": "ISC",
 	"dependencies": {
+		"bcryptjs": "^2.4.3",
 		"dotenv": "^16.0.1",
 		"express": "^4.18.1",
 		"mysql2": "^2.3.3",
 		"sequelize": "^6.20.1"
 	},
 	"devDependencies": {
+		"@faker-js/faker": "^7.2.0",
 		"nodemon": "^2.0.16",
 		"sequelize-cli": "^6.4.1"
 	}
