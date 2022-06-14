@@ -1,25 +1,12 @@
 const { Users } = require("../database/models");
 
-const userController = {
+const UserController = {
 	async create(req, res) {
-		try {
-			
-			res.status(201);
-		} catch (error) {
-			console.log(error);
-			return res.status(201);
-		}
-	},
-
-	async getAll(req, res) {
-		try {
-			
-			res.status(201);
-		} catch (error) {
-			console.log(error);
-			return res.status(201);
-		}
+		const newUser = await Users.create({
+			...req.body
+		});
+		return res.status(201).json(newUser);
 	}
 };
 
-module.exports = userController;
+module.exports = UserController;
