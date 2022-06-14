@@ -1,9 +1,12 @@
-const { Users, Posts } = require("../database/models");
+const { Users } = require("../database/models");
 
-const userController = {
+const UserController = {
 	async create(req, res) {
-		res.status(200).json({ msg: "teste de rotas" });
+		const newUser = await Users.create({
+			...req.body
+		});
+		return res.status(201).json(newUser);
 	}
 };
 
-module.exports = userController;
+module.exports = UserController;

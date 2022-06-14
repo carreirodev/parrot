@@ -1,11 +1,11 @@
-const express = require("express");
-const routes = express.Router();
-// const userController = require("../controllers/userController");
+const express = require("express"),
+	routes = express.Router(),
+	UserController = require("../controllers/userController");
 
 routes.get("/", (req, res) => {
 	res.status(200).json({ msg: "teste de rotas" });
 });
 
-// routes.get("/usuarios", userController.create);
+routes.post("/usuarios", UserController.create);
 
 module.exports = routes;
