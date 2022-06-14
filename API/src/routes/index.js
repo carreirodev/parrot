@@ -1,9 +1,8 @@
 const express = require("express"),
 	routes = express.Router(),
-	UserController = require("../controllers/userController"),
+  UserController = require("../controllers/userController"),
 	PostController = require("../controllers/postController");
 
-routes.post("/usuario/criar", UserController.create);
 routes.get("/usuario/listar", UserController.listar);
 routes.put("/usuario/atualizar/:id");
 routes.delete("/usuario/apagar/:id");

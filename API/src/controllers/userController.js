@@ -2,6 +2,7 @@ const { Users } = require("../database/models");
 const bcrypt = require("bcryptjs");
 
 const UserController = {
+
 	async create(req, res) {
 		const { name, email, apartment, password } = req.body;
 		const newPass = bcrypt.hashSync(password, 10);
@@ -24,8 +25,6 @@ const UserController = {
 			const allUsers = await Users.findAll({
 				attributes: { exclude: "password" }
 			});
-
-			console.log(allUsers);
 
 			if (!allUsers) {
 				return res.status(200).json("Nenhum usuário cadastrado!");
