@@ -1,16 +1,8 @@
-const express = require("express"),
-	routes = express.Router();
+const express = require("express");
+const routes = express.Router();
 
-const userController = require("../controllers/userController");
-
-routes.post("/usuario/criar", userController.create);
-routes.get("/usuario", userController.getAll);
-routes.put("/usuario/atualizar/:id");
-routes.delete("/usuario/apagar/:id");
-
-routes.post("/post/criar");
-routes.get("/post");
-routes.put("/post/atualizar/:id");
-routes.delete("/post/apagar/:id");
+routes.get("/", (req, res) => {
+	res.status(200).json({ msg: "tesdte rotas" });
+});
 
 module.exports = routes;

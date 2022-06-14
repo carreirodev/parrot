@@ -8,15 +8,15 @@
 	},
 	"test": {
 		"username": "root",
-		"password": null,
-		"database": "database_test",
+		"password": "sdGyJJhChiqbydu8VCut",
+		"database": "parrot_social",
 		"host": "127.0.0.1",
 		"dialect": "mysql"
 	},
 	"production": {
 		"username": "root",
-		"password": null,
-		"database": "database_production",
+		"password": "sdGyJJhChiqbydu8VCut",
+		"database": "parrot_social",
 		"host": "127.0.0.1",
 		"dialect": "mysql"
 	}
