@@ -9,10 +9,12 @@ const Posts = db.define("Posts", {
 		type: DataTypes.INTEGER
 	},
 	content: {
-		type: DataTypes.STRING
+		type: DataTypes.STRING,
+		allowNull: false
 	},
 	user_id: {
 		type: DataTypes.INTEGER,
+		allowNull: false,
 		references: {
 			model: {
 				tableName: "Users"

@@ -9,16 +9,23 @@ const Users = db.define("Users", {
 		type: DataTypes.INTEGER
 	},
 	name: {
-		type: DataTypes.STRING
+		type: DataTypes.STRING,
+		allowNull: false
 	},
 	email: {
-		type: DataTypes.STRING
+		type: DataTypes.STRING,
+		allowNull: false,
+		unique: true
 	},
 	apartment: {
 		type: DataTypes.INTEGER
 	},
 	password: {
-		type: DataTypes.STRING
+		type: DataTypes.STRING,
+		allowNull: false
+	},
+	status: {
+		type: DataTypes.BOOLEAN
 	},
 	createdAt: {
 		allowNull: false,
