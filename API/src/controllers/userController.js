@@ -22,10 +22,11 @@ const UserController = {
 	async listar(req, res) {
 		try {
 			const allUsers = await Users.findAll({
+				where: {
+					status: true
+				},
 				attributes: { exclude: "password" }
 			});
-
-			console.log(allUsers);
 
 			if (!allUsers) {
 				return res.status(200).json("Nenhum usuário cadastrado!");
