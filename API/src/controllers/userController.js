@@ -34,7 +34,39 @@ const UserController = {
 		} catch (error) {
 			return res.status(500).json("Ocorreu um erro ao listar usuários");
 		}
-	}
+	},
+	
+	async alterarUsuario(req, res) {
+		const { idUser } = req.params;
+		  try {
+			const { idUser, name, email, apartment, password } = req.body;
+			if (password) {
+			  const newpassword = bcrypt.hashSync(password, 10);
+			  const atualizarUsuario = await Users.update(
+				{idUser, name, email, apartment, password},
+				{
+				  where: {
+					id,
+				  },
+				}
+			  );
+			  return res.status(201).json("Psicologo atualizado");
+			} else {
+			const atualizarUsuario = await Users.update(
+			  {idUser, name, email, apartment, password},
+			  {
+				where: {
+				  idUser,
+				},
+			  }
+			);
+			return res.status(201).json("Dados do usuário atualizados com sucesso");
+		  }
+		}
+		catch (error) {
+		  res.status(400).json("Não foi possivel atualizar os dados do usuário");
+		}
+	  }	 
 };
 
 module.exports = UserController;
