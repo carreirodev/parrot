@@ -25,7 +25,24 @@ const PostController = {
 		} catch (error) {
 			return res.status(500).json("Ocorreu um erro ao listar posts");
 		}
-	}
+	},
+	async alterarPost(req, res) {
+		const { idPost } = req.params;
+		try {
+			const { idPost, content, user_id } = req.body;
+			const atualizarPosts = await Posts.update(
+			  { idPost,content, user_id },
+			  {
+				where: {
+				  idPost,
+				},
+			  }
+			);
+			return res.status(201).json("Postagem atualizada com sucesso");
+		  } catch (error) {
+			res.status(400).json("Não foi possivel atualizar a postagem selecionada");
+		  }
+		},
 };
 
 module.exports = PostController;
