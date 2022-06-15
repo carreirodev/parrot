@@ -3,14 +3,14 @@ const express = require("express"),
 	UserController = require("../controllers/userController"),
 	PostController = require("../controllers/postController");
 
-routes.post("/usuario/criar", UserController.create);
-routes.get("/usuario/listar", UserController.listar);
-routes.put("/usuario/atualizar/:id");
-routes.delete("/usuario/apagar/:id");
+routes.post("/usuario", UserController.create);
+routes.get("/usuario", UserController.listar);
+routes.put("/usuario/:id");
+routes.delete("/usuario/:id");
 
-routes.post("/post/criar", PostController.create);
-routes.get("/post/listar", PostController.listar);
-routes.put("/post/atualizar/:id");
-routes.delete("/post/apagar/:id");
+routes.post("/post", PostController.create);
+routes.get("/post", PostController.listar);
+routes.put("/post/:id");
+routes.delete("/post/:id");
 
 module.exports = routes;

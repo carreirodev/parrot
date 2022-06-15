@@ -23,7 +23,7 @@ const UserController = {
 		try {
 			const allUsers = await Users.findAll({
 				where: {
-					status: true
+					status: 1
 				},
 				attributes: { exclude: "password" }
 			});
