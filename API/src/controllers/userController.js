@@ -36,6 +36,47 @@ const UserController = {
 		} catch (error) {
 			return res.status(500).json("Ocorreu um erro ao listar usuários");
 		}
+	},
+
+	async alterar(req, res) {
+		try {
+			const { id } = req.params;
+
+			const { name, email, apartment, password } = req.body;
+
+			if (!id) {
+				return res.status(404).json("id não encontrado");
+			}
+
+			const newPass = bcrypt.hashSync(password, 10);
+
+			await Users.update(
+				{
+					name,
+					email,
+					password: newPass,
+					apartment
+				},
+				{
+					where: {
+						idUser: id
+					}
+				}
+			);
+
+			const userAtualizado = await Users.findOne({
+				where: {
+					idUser: id
+				},
+
+				attributes: {
+					exclude: ["status"]
+				}
+			});
+			return res.status(200).json(userAtualizado);
+		} catch (error) {
+			return res.status(400).json("Post nao");
+		}
 	}
 };
 
