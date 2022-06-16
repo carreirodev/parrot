@@ -15,6 +15,6 @@ routes.delete("/usuario/:id");
 routes.post("/post", postsCreateValidation, PostController.create);
 routes.get("/post", PostController.listar);
 routes.put("/post/:id", postsUpdateValidation, PostController.alterar);
-routes.delete("/post/:id");
+routes.delete("/post/:id", PostController.apagarPost);
 
 module.exports = routes;
