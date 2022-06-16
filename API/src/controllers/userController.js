@@ -23,6 +23,9 @@ const UserController = {
 	async listar(req, res) {
 		try {
 			const allUsers = await Users.findAll({
+				where: {
+					status: 1
+				},
 				attributes: { exclude: "password" }
 			});
 
@@ -33,6 +36,43 @@ const UserController = {
 			res.status(200).json(allUsers);
 		} catch (error) {
 			return res.status(500).json("Ocorreu um erro ao listar usuários");
+		}
+	},
+
+	async alterar(req, res) {
+		try {
+			const { id } = req.params;
+
+			const { name, email, apartment, password } = req.body;
+
+			const newPass = bcrypt.hashSync(password, 10);
+
+			await Users.update(
+				{
+					name,
+					email,
+					password: newPass,
+					apartment
+				},
+				{
+					where: {
+						idUser: id
+					}
+				}
+			);
+
+			const userAtualizado = await Users.findOne({
+				where: {
+					idUser: id
+				},
+
+				attributes: {
+					exclude: ["status"]
+				}
+			});
+			return res.status(200).json(userAtualizado);
+		} catch (error) {
+			return res.status(400).json("usuario nao alterado");
 		}
 	}
 };
