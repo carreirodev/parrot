@@ -2,7 +2,6 @@ const { Users } = require("../database/models");
 const bcrypt = require("bcryptjs");
 
 const UserController = {
-
 	async create(req, res) {
 		const { name, email, apartment, password } = req.body;
 		const newPass = bcrypt.hashSync(password, 10);
@@ -73,6 +72,28 @@ const UserController = {
 			return res.status(200).json(userAtualizado);
 		} catch (error) {
 			return res.status(400).json("usuario nao alterado");
+		}
+	},
+
+	async apagarUser(req, res) {
+		try {
+			const { id } = req.params;
+			const user = await Users.findOne({
+				where: {
+					status: 1,
+					idUser: id
+				}
+			});
+
+			if (user) {
+				await Users.update({ status: 0 }, { where: { idUser: id } });
+
+				return res.status(204);
+			}
+
+			res.status(404).json("usuario não encontrado!");
+		} catch (error) {
+			return res.status(500).json("Erro ao tentar apagar usuario!");
 		}
 	}
 };
