@@ -1,15 +1,18 @@
+const { application } = require("express");
+
 const express = require("express"),
 	routes = express.Router(),
-  UserController = require("../controllers/userController"),
-	PostController = require("../controllers/postController");
+UserController = require("../controllers/userController"),
+PostController = require("../controllers/postController");
 
+routes.post("/usuario", UserController.create);
 routes.get("/usuario", UserController.listar);
-routes.put("/usuario/:id", UserController.alterarUsuario);
+routes.patch("/usuario/:id", UserController.alterar);
 routes.delete("/usuario/apagar/:id");
 
-routes.post("/post", PostController.create);
+//routes.post("/post", postsCreateValidation, PostController.create);
 routes.get("/post", PostController.listar);
-routes.put("/post/:id", PostController.alterarPost);
+routes.put("/post/:id", PostController.alterar);
 routes.delete("/post/:id");
 
 module.exports = routes;

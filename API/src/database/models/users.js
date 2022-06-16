@@ -27,6 +27,9 @@ const Users = db.define("Users", {
 	status: {
 		type: DataTypes.BOOLEAN
 	},
+	admin: {
+		type: DataTypes.BOOLEAN
+	},
 	createdAt: {
 		allowNull: false,
 		type: DataTypes.DATE

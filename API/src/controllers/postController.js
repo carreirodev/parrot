@@ -26,23 +26,56 @@ const PostController = {
 			return res.status(500).json("Ocorreu um erro ao listar posts");
 		}
 	},
-	async alterarPost(req, res) {
-		const { idPost } = req.params;
+
+	async alterar(req, res) {
 		try {
-			const { idPost, content, user_id } = req.body;
-			const atualizarPosts = await Posts.update(
-			  { idPost,content, user_id },
-			  {
-				where: {
-				  idPost,
-				},
-			  }
+			const { id } = req.params;
+			const { content } = req.body;
+
+			await Posts.update(
+				{ content },
+				{
+					where: {
+						idPost: id
+					}
+				}
 			);
-			return res.status(201).json("Postagem atualizada com sucesso");
-		  } catch (error) {
-			res.status(400).json("Não foi possivel atualizar a postagem selecionada");
-		  }
-		},
+
+			const postAtualizado = await Posts.findOne({
+				where: {
+					idPost: id
+				},
+
+				attributes: {
+					exclude: ["user_id"]
+				}
+			});
+			return res.status(200).json(postAtualizado);
+		} catch (error) {
+			return res.status(400).json("Post nao atualizado");
+		}
+	},
+
+	async apagarPost(req, res) {
+		try {
+			const { id } = req.params;
+
+			const post = await Posts.findOne({
+				where: {
+					idPost: id
+				}
+			});
+
+			if (post) {
+				await Posts.destroy({ where: { idPost: id } });
+				return res.sendStatus(204);
+			}
+
+			res.status(404).json("Post não encontrado!");
+		} catch (error) {
+			return res.status(500).json("Erro ao tentar apagar post!");
+		}
+	}
 };
 
 module.exports = PostController;
