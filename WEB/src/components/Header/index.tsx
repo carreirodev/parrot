@@ -2,7 +2,7 @@ import React from "react";
 import logoHeader from "../../assets/parrot-header.png";
 import { Navbar, Container, NavbarBrand } from "react-bootstrap";
 
-import "./styles.css";
+import "../../global/styles.css";
 const Header: React.FC = () => {
 	return (
 		<Navbar expand="lg" id="header">
