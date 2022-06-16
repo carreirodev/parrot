@@ -9,7 +9,7 @@ const Cadastro: React.FC = () => {
     <div className="fundo">
 			<div className="layer">
 				<Card className="text-center" id="box">
-					{/* <img src={logo} alt="logo do parrot" /> */}
+					<img src={logo} alt="logo do parrot" />
 					<div className="form">
 						<FormCadastro />
 					</div>
