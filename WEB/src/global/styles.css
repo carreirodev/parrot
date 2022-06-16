@@ -64,10 +64,16 @@ input::placeholder {
 
 #botao-formulario {
 	background-color: #76bb4c;
-	border: 0 none;
+	border: 1px solid #76bb4c ;
 	border-radius: 10px;
 	color: #000;
 	transition: 0.4s ease-in-out;
+}
+
+#botao-formulario:hover {
+	background-color: #ffffff;
+	border: solid 1px #76bb4c;
+	color: #76bb4c;
 }
 
 #header {
@@ -88,4 +94,10 @@ input::placeholder {
 	color: #6033aa;
 	font-size: 16px;
 	text-decoration: none;
+}
+
+#botao-inicial {
+	text-decoration: none;
+	color: #555555;
+	font-size: 18px;
 }
