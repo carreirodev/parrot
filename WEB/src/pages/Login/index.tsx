@@ -1,7 +1,10 @@
 import React from 'react';
+import TelaForm from "../../components/TelaForm";
 
 const Login: React.FC = () => {
-  return <div />;
+  return (
+    <TelaForm />
+  );
 }
 
 export default Login;
