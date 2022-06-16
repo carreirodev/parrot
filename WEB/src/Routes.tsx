@@ -14,7 +14,7 @@ export default function Routes() {
 			<WrapperRoutes>
 				<Route path="/" element={<Login />} />
 				<Route path="/cadastro" element={<Cadastro />} />
-				<Route path="/feed" element={<Feed />} />
+				<Route path="/post" element={<Feed />} />
 				<Route path="/perfil" element={<PerfilUsuario />} />
 			</WrapperRoutes>
 		</BrowserRouter>
