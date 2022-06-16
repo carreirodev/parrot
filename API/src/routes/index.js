@@ -1,5 +1,6 @@
 const express = require("express"),
 	routes = express.Router(),
+
 	UserController = require("../controllers/userController"),
 	PostController = require("../controllers/postController"),
 	usersCreateValidation = require("../validator/users/create"),

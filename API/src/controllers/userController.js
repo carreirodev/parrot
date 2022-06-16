@@ -2,6 +2,7 @@ const { Users } = require("../database/models");
 const bcrypt = require("bcryptjs");
 
 const UserController = {
+
 	async create(req, res) {
 		const { name, email, apartment, password } = req.body;
 		const newPass = bcrypt.hashSync(password, 10);
