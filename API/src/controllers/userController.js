@@ -44,10 +44,6 @@ const UserController = {
 
 			const { name, email, apartment, password } = req.body;
 
-			if (!id) {
-				return res.status(404).json("id não encontrado");
-			}
-
 			const newPass = bcrypt.hashSync(password, 10);
 
 			await Users.update(
@@ -75,7 +71,7 @@ const UserController = {
 			});
 			return res.status(200).json(userAtualizado);
 		} catch (error) {
-			return res.status(400).json("Post nao");
+			return res.status(400).json("usuario nao alterado");
 		}
 	}
 };
