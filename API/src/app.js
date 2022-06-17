@@ -20,7 +20,7 @@ db.hasConnection();
 
 app.use(handleError);
 
-const port = 3000;
+const port = 4000;
 app.listen(port, () => {
 	console.log("Servidor rodando na porta " + port);
 });
