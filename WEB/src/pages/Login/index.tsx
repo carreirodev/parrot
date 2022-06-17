@@ -3,7 +3,7 @@ import { Card } from "react-bootstrap";
 import logo from "../../assets/logoForm.png";
 import FormLogin from "../../components/FormLogin";
 
-import "../../global/styles.css";
+import "./styles.css";
 const Login: React.FC = () => {
 	return (
 		<div className="fundo">
