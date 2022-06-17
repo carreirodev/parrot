@@ -3,23 +3,24 @@ import { Button, Form, FormControl, FormGroup, Alert } from "react-bootstrap";
 import { Link, useNavigate } from "react-router-dom";
 import { useFormik } from "formik";
 import * as Yup from "yup";
+import { createUser2 } from '../../api';
 import logo from '../../assets/logoForm.png'
 import "./styles.css";
 
 const validationSchema = Yup.object({
-	nome: Yup.string().required("Preencha esse campo com o seu nome!"),
+	name: Yup.string().required("Preencha esse campo com o seu name!"),
 	email: Yup.string()
 		.email("Por favor, utilize um email válido!")
 		.required("Por favor, insira seu email"),
-	senha: Yup.string()
-		.required("Por favor, preencha esse campo com sua senha")
-		.min(8, "Sua senha deve ter no mínimo 8 caracteres")
-		.max(12, "Sua senha deve ter no máximo 12 caracteres"),
-	confirmarSenha: Yup.string()
-		.oneOf([Yup.ref("senha"), null], "Preencha os campos com senhas iguais!")
-		.required("Por favor, preencha esse campo com sua senha novamente"),
-	apartamento: Yup.string().required(
-		"Por favor, preencha esse campo com o número da sua unidade/apartamento"
+	password: Yup.string()
+		.required("Por favor, preencha esse campo com sua password")
+		.min(8, "Sua password deve ter no mínimo 8 caracteres")
+		.max(12, "Sua password deve ter no máximo 12 caracteres"),
+	confirmarpassword: Yup.string()
+		.oneOf([Yup.ref("password"), null], "Preencha os campos com passwords iguais!")
+		.required("Por favor, preencha esse campo com sua password novamente"),
+	apartment: Yup.string().required(
+		"Por favor, preencha esse campo com o número da sua unidade/apartment"
 	),
 });
 
@@ -27,20 +28,27 @@ const FormCadastro: React.FC = () => {
 
 	const formik = useFormik({
         initialValues: {
-            nome:'',
+            name:'',
             email:'',
-            senha: '',
-			confirmarSenha: '',
-			apartamento: '',
+            password: '',
+			confirmarpassword: '',
+			apartment: '',
         },
         validationSchema,
         onSubmit: async values => {
-			// FALTA COMPLETAR
+			const a = await createUser2({
+				name: values.name,
+				password: values.password,
+				email: values.email,
+				apartment: parseInt(values.apartment),
+			  }) 
+			  console.log(a); 
+			  
 		  }
 		})
 	
 	return(
-		<Form id="formulario" 
+		<Form onSubmit={formik.handleSubmit} id="formulario" 
 		>
 				<img src={logo} alt="logo do parrot" />
 
@@ -48,15 +56,15 @@ const FormCadastro: React.FC = () => {
 
 			<FormGroup className="mb-1">
 				<FormControl
-					id="nome"
+					id="name"
 					type="text"
-					placeholder="nome"
-					value={formik.values.nome}
+					placeholder="name"
+					value={formik.values.name}
 					onChange={formik.handleChange}
-					isInvalid={formik.touched.nome && !!formik.errors.nome}
-					isValid={formik.touched.nome && !formik.errors.nome}
+					isInvalid={formik.touched.name && !!formik.errors.name}
+					isValid={formik.touched.name && !formik.errors.name}
 				/>
-				{formik.errors.nome && <span>{formik.errors.nome}</span>}
+				{formik.errors.name && <span>{formik.errors.name}</span>}
 			</FormGroup>
 			<FormGroup className="mb-1">
 				<FormControl
@@ -72,43 +80,43 @@ const FormCadastro: React.FC = () => {
 			</FormGroup>
 			<FormGroup className="mb-1">
 				<FormControl
-					id="senha"
+					id="password"
 					type="password"
-					placeholder="senha"
-					value={formik.values.senha}
+					placeholder="password"
+					value={formik.values.password}
 					onChange={formik.handleChange}
-					isInvalid={formik.touched.senha && !!formik.errors.senha}
-					isValid={formik.touched.senha && !formik.errors.senha}
+					isInvalid={formik.touched.password && !!formik.errors.password}
+					isValid={formik.touched.password && !formik.errors.password}
 				/>
-				{formik.errors.senha && <span>{formik.errors.senha}</span>}
+				{formik.errors.password && <span>{formik.errors.password}</span>}
 			</FormGroup>
 			<FormGroup className="mb-1">
 				<FormControl
-					id="confirmarSenha"
+					id="confirmarpassword"
 					type="password"
-					placeholder="confirmar senha"
-					value={formik.values.confirmarSenha}
+					placeholder="confirmar password"
+					value={formik.values.confirmarpassword}
 					onChange={formik.handleChange}
 					isInvalid={
-						formik.touched.confirmarSenha && !!formik.errors.confirmarSenha
+						formik.touched.confirmarpassword && !!formik.errors.confirmarpassword
 					}
 					isValid={
-						formik.touched.confirmarSenha && !formik.errors.confirmarSenha
+						formik.touched.confirmarpassword && !formik.errors.confirmarpassword
 					}
 				/>
-				{formik.errors.confirmarSenha && <span>{formik.errors.confirmarSenha}</span>}
+				{formik.errors.confirmarpassword && <span>{formik.errors.confirmarpassword}</span>}
 			</FormGroup>
 			<FormGroup className="mb-1">
 				<FormControl
-					id="apartamento"
+					id="apartment"
 					type="text"
-					placeholder="unidade/apartamento"
-					value={formik.values.apartamento}
+					placeholder="unidade/apartment"
+					value={formik.values.apartment}
 					onChange={formik.handleChange}
-					isInvalid={formik.touched.apartamento && !!formik.errors.apartamento}
-					isValid={formik.touched.apartamento && !formik.errors.apartamento}
+					isInvalid={formik.touched.apartment && !!formik.errors.apartment}
+					isValid={formik.touched.apartment && !formik.errors.apartment}
 				/>
-				{formik.errors.apartamento && <span>{formik.errors.apartamento}</span>}
+				{formik.errors.apartment && <span>{formik.errors.apartment}</span>}
 			</FormGroup>
 
 			<Button className="mb-3" type="submit" id="botao-formulario">
@@ -118,14 +126,14 @@ const FormCadastro: React.FC = () => {
 			{formik.errors.email && formik.touched.email && (
 				<Alert style={{ marginTop: 15 }} variant="danger">
 					{formik.errors.email}
-					{formik.errors.senha && formik.touched.senha && (
+					{formik.errors.password && formik.touched.password && (
 						<Alert style={{ marginTop: 15 }} variant="danger">
-							{formik.errors.senha}
+							{formik.errors.password}
 						</Alert>
 					)}
-					{formik.errors.confirmarSenha && formik.touched.confirmarSenha && (
+					{formik.errors.confirmarpassword && formik.touched.confirmarpassword && (
 						<Alert style={{ marginTop: 15 }} variant="danger">
-							{formik.errors.confirmarSenha}
+							{formik.errors.confirmarpassword}
 						</Alert>
 					)}
 				</Alert>
@@ -138,4 +146,4 @@ const FormCadastro: React.FC = () => {
 	);
 };
 
-export default FormCadastro
+export default FormCadastro;
