@@ -4,14 +4,14 @@ import { Link } from "react-router-dom";
 import { useFormik } from 'formik';
 import * as Yup from 'yup';
 import { loginUser } from '../../api';
-import "../../global/styles.css";
+import * as S from "./styled";
 
 const validationSchema = Yup.object({
 	email: Yup.string()
-		.email("Por favor, utilize um email válido!")
-		.required("Por favor, insira seu email"),
+		.email("Utilize um email válido")
+		.required("Insira seu email"),
 	password: Yup.string()
-		.required("Por favor, preencha esse campo com sua senha")
+		.required("Insira sua senha")
 		.min(8, "Sua senha deve ter no mínimo 8 caracteres")
 		.max(12, "Sua senha deve ter no máximo 12 caracteres"),
 })
@@ -33,7 +33,7 @@ const FormLogin: React.FC = () => {
 		})
 
 	return (
-		<Form onSubmit={formik.handleSubmit} id="formulario">
+		<S.StyledForm onSubmit={formik.handleSubmit}>
 			<h3>LOGIN</h3>
 
 			<FormGroup className="mb-3">
@@ -61,12 +61,12 @@ const FormLogin: React.FC = () => {
 				{formik.errors.password && <span>{formik.errors.password}</span>}
 			</FormGroup>
 
-			<Button className="mb-3" type="submit" id="botao-formulario">
-				login
-			</Button>
+			<S.StyledButton className="mb-3" type="submit">
+				entrar
+			</S.StyledButton>
 
-			<Link to="/cadastro" id="botao-inicial">cadastre-se</Link>
-		</Form>
+			<S.StyledLink to="/cadastro">cadastre-se</S.StyledLink>
+		</S.StyledForm>
 	);
 };
 

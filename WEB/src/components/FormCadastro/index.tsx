@@ -3,54 +3,52 @@ import { Button, Form, FormControl, FormGroup, Alert } from "react-bootstrap";
 import { Link, useNavigate } from "react-router-dom";
 import { useFormik } from "formik";
 import * as Yup from "yup";
-import { createUser2 } from '../../api';
-import logo from '../../assets/logoForm.png'
-import "./styles.css";
+import { createUser2 } from "../../api";
+import * as S from "./styled";
 
 const validationSchema = Yup.object({
-	name: Yup.string().required("Preencha esse campo com o seu name!"),
+	name: Yup.string().required("Insira seu nome"),
 	email: Yup.string()
-		.email("Por favor, utilize um email válido!")
-		.required("Por favor, insira seu email"),
+		.email("Utilize um email válido")
+		.required("Insira seu email"),
 	password: Yup.string()
-		.required("Por favor, preencha esse campo com sua password")
-		.min(8, "Sua password deve ter no mínimo 8 caracteres")
-		.max(12, "Sua password deve ter no máximo 12 caracteres"),
+		.required("Insira sua senha")
+		.min(8, "Sua senha deve ter no mínimo 8 caracteres")
+		.max(12, "Sua senha deve ter no máximo 12 caracteres"),
 	confirmarpassword: Yup.string()
-		.oneOf([Yup.ref("password"), null], "Preencha os campos com passwords iguais!")
-		.required("Por favor, preencha esse campo com sua password novamente"),
+		.oneOf(
+			[Yup.ref("password"), null],
+			"Preencha os campos com senhas iguais!"
+		)
+		.required("Insira sua senha novamente"),
 	apartment: Yup.string().required(
-		"Por favor, preencha esse campo com o número da sua unidade/apartment"
+		"Insira sua unidade/apartamento"
 	),
 });
 
 const FormCadastro: React.FC = () => {
-
 	const formik = useFormik({
-        initialValues: {
-            name:'',
-            email:'',
-            password: '',
-			confirmarpassword: '',
-			apartment: '',
-        },
-        validationSchema,
-        onSubmit: async values => {
+		initialValues: {
+			name: "",
+			email: "",
+			password: "",
+			confirmarpassword: "",
+			apartment: "",
+		},
+		validationSchema,
+		onSubmit: async (values) => {
 			const a = await createUser2({
 				name: values.name,
 				password: values.password,
 				email: values.email,
 				apartment: parseInt(values.apartment),
-			  }) 
-			  console.log(a); 
-			  
-		  }
-		})
-	
-	return(
-		<Form onSubmit={formik.handleSubmit} id="formulario" 
-		>
-				<img src={logo} alt="logo do parrot" />
+			});
+			console.log(a);
+		},
+	});
+
+	return (
+		<S.StyledForm onSubmit={formik.handleSubmit}>
 
 			<h3>CADASTRO</h3>
 
@@ -98,13 +96,16 @@ const FormCadastro: React.FC = () => {
 					value={formik.values.confirmarpassword}
 					onChange={formik.handleChange}
 					isInvalid={
-						formik.touched.confirmarpassword && !!formik.errors.confirmarpassword
+						formik.touched.confirmarpassword &&
+						!!formik.errors.confirmarpassword
 					}
 					isValid={
 						formik.touched.confirmarpassword && !formik.errors.confirmarpassword
 					}
 				/>
-				{formik.errors.confirmarpassword && <span>{formik.errors.confirmarpassword}</span>}
+				{formik.errors.confirmarpassword && (
+					<span>{formik.errors.confirmarpassword}</span>
+				)}
 			</FormGroup>
 			<FormGroup className="mb-1">
 				<FormControl
@@ -119,11 +120,11 @@ const FormCadastro: React.FC = () => {
 				{formik.errors.apartment && <span>{formik.errors.apartment}</span>}
 			</FormGroup>
 
-			<Button className="mb-3" type="submit" id="botao-formulario">
+			<S.StyledButton className="mb-3" type="submit">
 				entrar
-			</Button>
+			</S.StyledButton>
 
-			{formik.errors.email && formik.touched.email && (
+			{/* {formik.errors.email && formik.touched.email && (
 				<Alert style={{ marginTop: 15 }} variant="danger">
 					{formik.errors.email}
 					{formik.errors.password && formik.touched.password && (
@@ -137,12 +138,12 @@ const FormCadastro: React.FC = () => {
 						</Alert>
 					)}
 				</Alert>
-			)}
+			)} */}
 
-			<Link to="/" id="botao-inicial">
+			<S.StyledLink to="/">
 				voltar
-			</Link>
-		</Form>
+			</S.StyledLink>
+		</S.StyledForm>
 	);
 };
 

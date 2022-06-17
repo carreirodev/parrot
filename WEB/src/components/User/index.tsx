@@ -1,29 +1,25 @@
 import React from "react";
-import {
-	Button,
-	Col,
-	Form,
-} from "react-bootstrap";
+import { Button } from "react-bootstrap";
 import fotoUsuario from "../../assets/foto.png";
-import "./styles.css";
+import * as S from "./styled";
 
 const User: React.FC = () => {
 	return (
 		<div>
-			<div className="container-user">
-				<div className="user">
-				<img src={fotoUsuario} alt="foto de perfil" />
-					<div className="identificacao-user">
-							<span className="nome">Nome Sobrenome </span>
-							<span>apê 82</span>
+			<S.ContainerUser>
+				<S.User>
+					<img src={fotoUsuario} alt="foto de perfil" />
+					<S.InfoUser>
+						<S.Nome>Nome Sobrenome </S.Nome>
+						<span>apê 82</span>
 						<span className="ape">user@mail.com</span>
-					</div>
-				</div>
-				<Button type="submit" id="botao-user">
+					</S.InfoUser>
+				</S.User>
+				<S.BotaoUser type="submit">
 					Editar
-				</Button>
-			</div>
-      	<hr/>
+				</S.BotaoUser>
+			</S.ContainerUser>
+			<hr />
 		</div>
 	);
 };

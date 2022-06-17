@@ -1,23 +1,28 @@
 import React from "react";
 import logoHeader from "../../assets/parrot-header.png";
 import { Navbar, Container, NavbarBrand } from "react-bootstrap";
+import * as S from "./styled";
 
-import "./styles.css";
 const Header: React.FC = () => {
 	return (
-		<Navbar expand="lg" id="header">
+		<S.StyledNavbar expand="lg">
 			<Container>
-				<NavbarBrand>
-					<a href="/"><img src={logoHeader} alt="logo do parrot" id="header-img"></img></a> 
-				</NavbarBrand>
+				<S.StyledNavbarBrand>
+					<a href="/">
+						<img src={logoHeader} alt="logo do parrot"></img>
+					</a>
+				</S.StyledNavbarBrand>
 				<Navbar.Toggle />
 				<Navbar.Collapse className="justify-content-end">
-					<Navbar.Text id="header-texto">
-                        Olá, usuário | <a href="#" id="header-link">sair</a>
-					</Navbar.Text>
+					<S.StyledNavbarText>
+						Olá, usuário |{" "}
+						<a href="#" id="header-link">
+							sair
+						</a>
+					</S.StyledNavbarText>
 				</Navbar.Collapse>
 			</Container>
-		</Navbar>
+		</S.StyledNavbar>
 	);
 };
 

@@ -1,29 +1,28 @@
 import React from "react";
-import {} from "react-bootstrap";
 import foto from "../../assets/foto.png";
-import "./styles.css";
+import * as S from "./styled";
 
 const Posts: React.FC = () => {
 	return (
 		<div>
-			<div className="container-post">
+			<S.ContainerPost>
 				<img src={foto} alt="foto de perfil" />
-				<div className="post-texto">
-					<div className="nome-ape">
-						<span className="nome">Vinicius </span>
+				<S.PostTexto>
+					<S.NomeApe>
+						<span>Vinicius </span>
 						<span>-</span>
-						<span className="ape"> apê 42</span>
-					</div>
+						<span> apê 42</span>
+					</S.NomeApe>
 
-					<span className="horario">10/06/2022 09:00</span>
+					<S.Horario>10/06/2022 09:00</S.Horario>
 
-					<p className="post">
+					<S.Post>
 						Poxa galera, vamos respeitar o horário de silêncio! Tinha alguém
 						usando furadeira 2 HORAS DA MANHÃ!!! ó_ó
-					</p>
-				</div>
-			</div>
-      <hr/>
+					</S.Post>
+				</S.PostTexto>
+			</S.ContainerPost>
+			<hr />
 		</div>
 	);
 };
