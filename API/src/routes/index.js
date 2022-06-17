@@ -19,7 +19,7 @@ routes.delete("/usuario/:id");
 routes.post("/post", auth, postsCreateValidation, PostController.create);
 routes.get("/post", PostController.listar);
 routes.put("/post/:id", postsUpdateValidation, PostController.alterar);
-routes.delete("/post/:id", PostController.apagarPost);
+routes.delete("/post/:id", auth, PostController.apagarPost);
 
 routes.post("/login", authLoginValidation, AuthController.login);
 
