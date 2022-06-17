@@ -5,7 +5,7 @@ const secret = require("../configs/secret");
 
 const AuthController = {
 	async login(req, res) {
-		const { email, password } = req.body;
+		const { email, password,  } = req.body;
 
 		const user = await Users.findOne({
 			where: {
@@ -17,8 +17,7 @@ const AuthController = {
 		if (!user || !bcrypt.compareSync(password, user.password)) {
 			return res.status(400).json("email ou senha invalida");
 		}
-
-		const token = jwt.sign({ id: user.id, email: user.email, name: user.name }, secret.key);
+		const token = jwt.sign({ id: user.idUser, email: user.email, name: user.name }, secret.key);
 
 		return res.json(token);
 	}
