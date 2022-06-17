@@ -8,7 +8,7 @@ const Header: React.FC = () => {
 		<Navbar expand="lg" id="header">
 			<Container>
 				<NavbarBrand>
-					<img src={logoHeader} alt="logo do parrot" id="header-img"></img>
+					<a href="/"><img src={logoHeader} alt="logo do parrot" id="header-img"></img></a> 
 				</NavbarBrand>
 				<Navbar.Toggle />
 				<Navbar.Collapse className="justify-content-end">

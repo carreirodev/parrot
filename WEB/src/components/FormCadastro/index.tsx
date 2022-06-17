@@ -3,6 +3,7 @@ import { Button, Form, FormControl, FormGroup, Alert } from "react-bootstrap";
 import { Link, useNavigate } from "react-router-dom";
 import { useFormik } from "formik";
 import * as Yup from "yup";
+import { createUser2 } from '../../api';
 import logo from '../../assets/logoForm.png'
 import "./styles.css";
 
@@ -35,12 +36,19 @@ const FormCadastro: React.FC = () => {
         },
         validationSchema,
         onSubmit: async values => {
-			// FALTA COMPLETAR
+			const a = await createUser2({
+				name: values.name,
+				password: values.password,
+				email: values.email,
+				apartment: parseInt(values.apartment),
+			  }) 
+			  console.log(a); 
+			  
 		  }
 		})
 	
 	return(
-		<Form id="formulario" 
+		<Form onSubmit={formik.handleSubmit} id="formulario" 
 		>
 				<img src={logo} alt="logo do parrot" />
 

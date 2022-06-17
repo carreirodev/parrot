@@ -3,13 +3,14 @@ import { Button, Form, FormControl, FormGroup } from "react-bootstrap";
 import { Link } from "react-router-dom";
 import { useFormik } from 'formik';
 import * as Yup from 'yup';
+import { loginUser } from '../../api';
 import "../../global/styles.css";
 
 const validationSchema = Yup.object({
 	email: Yup.string()
 		.email("Por favor, utilize um email válido!")
 		.required("Por favor, insira seu email"),
-	senha: Yup.string()
+	password: Yup.string()
 		.required("Por favor, preencha esse campo com sua senha")
 		.min(8, "Sua senha deve ter no mínimo 8 caracteres")
 		.max(12, "Sua senha deve ter no máximo 12 caracteres"),
@@ -20,16 +21,19 @@ const FormLogin: React.FC = () => {
 	const formik = useFormik({
         initialValues: {
             email:'',
-            senha: ''
+            password: ''
         },
         validationSchema,
         onSubmit: async values => {
-			// FALTA COMPLETAR
+			console.log(values);
+			
+			const a = await loginUser(values) 
+			  console.log(values);
 		  }
 		})
 
 	return (
-		<Form id="formulario">
+		<Form onSubmit={formik.handleSubmit} id="formulario">
 			<h3>LOGIN</h3>
 
 			<FormGroup className="mb-3">
@@ -46,19 +50,19 @@ const FormLogin: React.FC = () => {
 			</FormGroup>
 			<FormGroup className="mb-3">
 			<FormControl
-					id="senha"
+					id="password"
 					type="password"
 					placeholder="senha"
-					value={formik.values.senha}
+					value={formik.values.password}
 					onChange={formik.handleChange}
-					isInvalid={formik.touched.senha && !!formik.errors.senha}
-					isValid={formik.touched.senha && !formik.errors.senha}
+					isInvalid={formik.touched.password && !!formik.errors.password}
+					isValid={formik.touched.password && !formik.errors.password}
 				/>
-				{formik.errors.senha && <span>{formik.errors.senha}</span>}
+				{formik.errors.password && <span>{formik.errors.password}</span>}
 			</FormGroup>
 
 			<Button className="mb-3" type="submit" id="botao-formulario">
-				entrar
+				login
 			</Button>
 
 			<Link to="/cadastro" id="botao-inicial">cadastre-se</Link>
