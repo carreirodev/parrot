@@ -2,16 +2,16 @@ import React from "react";
 import Header from "../../components/Header";
 import Publicar from "../../components/Publicar";
 import Posts from "../../components/Posts";
-import "./styles.css";
+import * as S from "./styled";
 
 const Feed: React.FC = () => {
 	return (
-		<div className="Feed">
+		<div>
 			<Header />
 			<Publicar />
-			<div id="feed-posts">
+			<S.FeedPost>
 				<Posts />
-			</div>
+			</S.FeedPost>
 		</div>
 	);
 };

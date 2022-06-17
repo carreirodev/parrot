@@ -1,22 +1,23 @@
 import React from "react";
-import { Card } from "react-bootstrap";
+import cover from "../../assets/cover.png";
 import logo from "../../assets/logoForm.png";
 import FormCadastro from "../../components/FormCadastro";
+import * as S from "./styled";
 
-import "../../global/styles.css";
 const Cadastro: React.FC = () => {
-  return (
-    <div className="fundo">
-			<div className="layer">
-				<Card className="text-center" id="box">
+	return (
+		<S.Fundo>
+			<img src={cover} alt="fundo do site" />
+			<S.Layer>
+				<S.Box className="text-center">
 					<img src={logo} alt="logo do parrot" />
 					<div className="form">
 						<FormCadastro />
 					</div>
-				</Card>
-			</div>
-		</div>
-  );
-}
+				</S.Box>
+			</S.Layer>
+		</S.Fundo>
+	);
+};
 
 export default Cadastro;
