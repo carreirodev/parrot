@@ -1,5 +1,4 @@
 const { Posts } = require("../database/models");
-
 const PostController = {
 	async create(req, res) {
 		
@@ -63,16 +62,22 @@ const PostController = {
 	async apagarPost(req, res) {
 		try {
 			const { id } = req.params;
-
 			const post = await Posts.findOne({
-				where: {
+				where: {	
 					idPost: id
 				}
 			});
 
+			
 			if (post) {
-				await Posts.destroy({ where: { idPost: id } });
-				return res.sendStatus(204);
+				if(!post.admin || post.user_id == req.auth.id){
+					await Posts.destroy({
+						where: { 
+							idPost: id
+						}
+					});
+					return res.sendStatus(204);
+				}
 			}
 
 			res.status(404).json("Post não encontrado!");
