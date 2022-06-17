@@ -26,7 +26,7 @@ Já o time de back-end ficou responsável por construir a API utilizando Node.js
 a. controllers
 b. endpoint (casos de erro também)
 
-O objetivo foi construir umaa API de acordo com os dados esperados na aplicação front-end. 
+O objetivo foi construir uma API de acordo com os dados esperados na aplicação front-end. 
 
 Houve utilização da metodologia ágil Kanban. 
 
