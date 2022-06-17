@@ -75,4 +75,28 @@ const UserController = {
     }
   },
 };
+
+    async apagarUser(req, res) {
+       try {
+       const { id } = req.params;
+       const user = await Users.findOne({
+	 where: {
+	   status: 1,
+	   idUser: id
+	  }
+	});
+
+        if (user) {
+	  await Users.update({ status: 0 }, { where: { idUser: id } });
+
+	  return res.status(204);
+	}
+
+	  res.status(404).json("usuario não encontrado!");
+	} catch (error) {
+	   return res.status(500).json("Erro ao tentar apagar usuario!");
+	}
+    }
+ };
+
 module.exports = UserController;
