@@ -11,7 +11,6 @@ const app = express();
 
 app.use(cors());
 
-
 app.use(express.json());
 
 app.use(morgan("dev"));
@@ -21,7 +20,7 @@ db.hasConnection();
 
 app.use(handleError);
 
-const port = 4000;
+const port = 3000;
 app.listen(port, () => {
 	console.log("Servidor rodando na porta " + port);
 });

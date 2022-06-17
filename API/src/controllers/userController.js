@@ -1,101 +1,78 @@
 const { Users } = require("../database/models");
 const bcrypt = require("bcryptjs");
+const { idUser, name, email, password, apartment } = require("../database/models/users");
 
 const UserController = {
-	async create(req, res) {
-		const { name, email, apartment, password } = req.body;
-		const newPass = bcrypt.hashSync(password, 10);
-		try {
-			const newUser = await Users.create({
-				name,
-				email,
-				apartment,
-				password: newPass,
-				status: true
-			});
-			return res.status(201).json(newUser);
-		} catch (error) {
-			res.status(500).json("Erro ao criar usuário");
-		}
-	},
+  async create(req, res) {
+    try {
+      const { name, email, apartment, password } = req.body;
+      const newPass = bcrypt.hashSync(password, 10);
+      const newUser = await Users.create({
+        name,
+        email,
+        apartment,
+        password: newPass,
+        status: true,
+      });
+      return res.status(201).json(newUser);
+    } catch (error) {
+      res.status(400).json("Erro ao criar usuário");
+    }
+  },
 
-	async listar(req, res) {
-		try {
-			const allUsers = await Users.findAll({
-				where: {
-					status: 1
-				},
-				attributes: { exclude: "password" }
-			});
+  async listar(req, res) {
+    try {
+      const allUsers = await Users.findAll({
+        attributes: { exclude: "password" },
+      });
+      if (!allUsers) {
+        return res.status(200).json("Nenhum usuário cadastrado!");
+      }
+      return res.status(200).json(allUsers);
+    } catch (error) {
+      console.log(error);
+      return res.status(400).json("Ocorreu um erro ao listar usuários");
+    }
+  },
 
-			if (!allUsers) {
-				return res.status(200).json("Nenhum usuário cadastrado!");
-			}
+  async alterar(req, res) {
+    const { id: idUser } = req.params;
+    const localizaUsuario = await Users.findOne({ where: { idUser} });
+    console.log(localizaUsuario, idUser);
 
-			res.status(200).json(allUsers);
-		} catch (error) {
-			return res.status(500).json("Ocorreu um erro ao listar usuários");
-		}
-	},
+    try {
+      
+      const atualizaUsuario = req.body;
 
-	async alterar(req, res) {
-		try {
-			const { id } = req.params;
+      if (localizaUsuario == null) {
+        return res.status(400).json({ message: "Usuário não encontrado" });
+      }
 
-			const { name, email, apartment, password } = req.body;
+      const query = {};
 
-			const newPass = bcrypt.hashSync(password, 10);
+      if (req.body.password != null) {
+        const newpassword = bcrypt.hashSync(req.body.password, 10);
+        query.password = newpassword;
+      }
 
-			await Users.update(
-				{
-					name,
-					email,
-					password: newPass,
-					apartment
-				},
-				{
-					where: {
-						idUser: id
-					}
-				}
-			);
+      if (req.body.name != null) {
+        query.name = req.body.name;
+      }
 
-			const userAtualizado = await Users.findOne({
-				where: {
-					idUser: id
-				},
+      if (req.body.email != null) {
+        query.email = req.body.email;
+      }
 
-				attributes: {
-					exclude: ["status"]
-				}
-			});
-			return res.status(200).json(userAtualizado);
-		} catch (error) {
-			return res.status(400).json("usuario nao alterado");
-		}
-	},
+      if (req.body.apartment != null) {
+        query.apartment = req.body.apartment;
+      }
+      const usuarioAtualizado = await Users.update(query, {where: {idUser}});
 
-	async apagarUser(req, res) {
-		try {
-			const { id } = req.params;
-			const user = await Users.findOne({
-				where: {
-					status: 1,
-					idUser: id
-				}
-			});
-
-			if (user) {
-				await Users.update({ status: 0 }, { where: { idUser: id } });
-
-				return res.status(204);
-			}
-
-			res.status(404).json("usuario não encontrado!");
-		} catch (error) {
-			return res.status(500).json("Erro ao tentar apagar usuario!");
-		}
-	}
+      return res.status(200).json({...localizaUsuario, ...query});
+    } catch (error) {
+      console.log(error);
+      res.status(400).json("Não foi possivel atualizar os dados do usuário");
+    }
+  },
 };
-
 module.exports = UserController;

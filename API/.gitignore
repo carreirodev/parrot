@@ -1,9 +1,4 @@
-<<<<<<< HEAD
 .vscode
 .env
 node_modules/
-=======
-node_module/
-.vscode/
-.env
->>>>>>> origin/development
+
